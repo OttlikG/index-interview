@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SearchTree from './SearchTree'
+import IndexTree from './IndexTree'
 
 class App extends Component {
   constructor() {
@@ -22,9 +24,10 @@ class App extends Component {
   }
 
   render () {
+    const { data } = this.state
     return (
       <div className="App">
-        
+        <IndexTree data={data} />
       </div>
     );
   }
