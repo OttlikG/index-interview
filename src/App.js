@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import SearchTree from './SearchTree'
 import IndexTree from './IndexTree'
 
+import './App.css'
+
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      data: []
+      data: [],
+      iframeUrl: ''
     }
   }
 
@@ -23,11 +26,20 @@ class App extends Component {
     })
   }
 
+  setIframeUrl = (url) => {
+    this.setState({ iframeUrl: url })
+  }
+
   render () {
-    const { data } = this.state
+    const { data, iframeUrl } = this.state
+    const iframeFullUrl = `https://index.hu/${iframeUrl}`
+
     return (
-      <div className="App">
-        <IndexTree data={data} />
+      <div className="app">
+        <IndexTree data={data} setIframeUrl={this.setIframeUrl} />
+        <div className="content">
+          <iframe src={iframeFullUrl} width="1000" height="800" />
+        </div>
       </div>
     );
   }

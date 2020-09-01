@@ -1,0 +1,16 @@
+.app {
+    display: flex;
+}
+
+.index-tree {
+    margin: 50px;
+    flex-grow: 0
+}
+
+.content {
+    flex-flow: 1;
+}
+
+iframe {
+    border: 0;
+}

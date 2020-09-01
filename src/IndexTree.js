@@ -10,11 +10,17 @@ class IndexTree extends React.Component {
       return {
         title: node.cim,
         key: node.folderId,
+        path: node.path,
         children: this.constructTree(node.children)
       }
     })
 
     return obj
+  }
+
+  onNodeSelected = (node, e) => {
+    console.log('-- node', e.node.path)
+    this.props.setIframeUrl(e.node.path)
   }
 
   render() {
@@ -23,9 +29,10 @@ class IndexTree extends React.Component {
     const treeData = this.constructTree(data)
 
     return (
-      <div>
+      <div className="index-tree">
         <Tree
           treeData={treeData}
+          onSelect={this.onNodeSelected}
         />
       </div>
     );
