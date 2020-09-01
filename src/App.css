@@ -17,3 +17,7 @@
 iframe {
     border: 0;
 }
+
+.site-tree-search-value {
+    color: red;
+}
