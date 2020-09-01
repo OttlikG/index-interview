@@ -9,8 +9,9 @@ const { Search } = Input
 class IndexTree extends React.Component {
 
   state = {
-    autoExpandParent: true,
-    expandedKeys: []
+    expandedKeys: [],
+    searchValue: '',
+    autoExpandParent: true
   }
 
   constructTree (data) {
@@ -55,7 +56,11 @@ class IndexTree extends React.Component {
     const treeData = this.constructTree(data)
     const searchedKey = findSearchMatch(treeData)
 
-    this.setState({ expandedKeys: searchedKey })
+    this.setState({
+      expandedKeys: searchedKey,
+      searchValue: value,
+      autoExpandParent: true,
+    })
   }
 
   onExpand = expandedKeys => {
@@ -67,9 +72,34 @@ class IndexTree extends React.Component {
 
   render() {
     const { data } = this.props
-    const { autoExpandParent, expandedKeys } = this.state
+    const { autoExpandParent, expandedKeys, searchValue } = this.state
 
     const treeData = this.constructTree(data)
+
+    const loop = data =>
+      data.map(item => {
+        const index = item.title.indexOf(searchValue);
+        const beforeStr = item.title.substr(0, index);
+        const afterStr = item.title.substr(index + searchValue.length);
+        const title =
+          index > -1 ? (
+            <span>
+              {beforeStr}
+              <span className="site-tree-search-value">{searchValue}</span>
+              {afterStr}
+            </span>
+          ) : (
+            <span>{item.title}</span>
+          );
+        if (item.children) {
+          return { title, key: item.key, children: loop(item.children) };
+        }
+
+        return {
+          title,
+          key: item.key,
+        };
+      });
 
     return (
       <div className="index-tree">
@@ -78,8 +108,8 @@ class IndexTree extends React.Component {
           onExpand={this.onExpand}
           onSelect={this.onNodeSelected}
           autoExpandParent={autoExpandParent}
-          treeData={treeData}
           expandedKeys={expandedKeys}
+          treeData={loop(treeData)}
         />
       </div>
     );
