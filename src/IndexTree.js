@@ -32,9 +32,19 @@ class IndexTree extends React.Component {
   }
 
   onChange = (e) => {
-    const { data } = this.props
     const { value } = e.target
-    
+
+    setTimeout(() => this.getExpandedElement(value), 0)
+
+    this.setState({
+      searchValue: value,
+      autoExpandParent: true,
+    })
+  }
+
+  getExpandedElement = (value) => {
+    const { data } = this.props
+
     function findSearchMatch(tree) {
       let matchedNode = []
       debugger;
@@ -58,8 +68,6 @@ class IndexTree extends React.Component {
 
     this.setState({
       expandedKeys: searchedKey,
-      searchValue: value,
-      autoExpandParent: true,
     })
   }
 
