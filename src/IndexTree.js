@@ -92,11 +92,17 @@ class IndexTree extends React.Component {
             <span>{item.title}</span>
           );
         if (item.children) {
-          return { title, key: item.key, children: loop(item.children) };
+          return {
+            title,
+            key: item.key,
+            path: item.path,
+            children: loop(item.children)
+          };
         }
 
         return {
           title,
+          path: item.path,
           key: item.key,
         };
       });
