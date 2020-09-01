@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchTree from './SearchTree'
 import IndexTree from './IndexTree'
 
-import './App.css'
+import './App.scss'
 
 class App extends Component {
   constructor() {
