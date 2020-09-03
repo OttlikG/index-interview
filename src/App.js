@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SearchTree from './SearchTree'
 import IndexTree from './IndexTree'
 
 import './App.scss'
